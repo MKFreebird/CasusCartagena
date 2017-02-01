@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Chat.CC;
-
-namespace Chat.BU
+﻿namespace Chat.BU
 {
+    using System.Linq;
+
     public partial class Chat
     {
+        
         public Chat CreateChat(int chatroomid, string chatroomname)
         {
+           
             using (ChatModelContainer context = new ChatModelContainer())
             {
                 IQueryable<Chat> chatq = context.ChatSet;

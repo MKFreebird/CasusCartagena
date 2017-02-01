@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Chat.BU;
-
-namespace Chat.CC
+﻿namespace Chat.CC
 {
+    using System.Collections.Generic;
+    using BU;
+
     public class CCRecieveMessage
     {
         private Message recievemessages = new Message();

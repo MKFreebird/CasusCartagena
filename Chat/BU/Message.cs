@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Chat.BU
+﻿namespace Chat.BU
 {
+    using System;
+    using System.Linq;
+
     public partial class Message
     {
+        /// <summary>
+        /// Write chatmessage to database
+        /// </summary>
+        /// <param name="messageid"> ID of the message itself</param>
+        /// <param name="userid"> ID of the user that sends the message </param>
+        /// <param name="chatid"> ID of the chatroom </param>
+        /// <param name="messagecontent"> The actual content of the message </param>
+        /// <param name="chat"> Object of current chatroom </param>
+        /// <returns></returns>
         public bool SendMessage(int messageid, int userid, int chatid, string messagecontent, Chat chat)
         {
             using (ChatModelContainer context = new ChatModelContainer())
@@ -29,6 +36,11 @@ namespace Chat.BU
             }
         }
 
+        /// <summary>
+        /// Receive a chatmessage
+        /// </summary>
+        /// <param name="chatid"> ID of the chatroom </param>
+        /// <returns> New messages in database </returns>
         public Message[] RecieveMessage(int chatid)
         {
             using (ChatModelContainer context = new ChatModelContainer())
@@ -43,6 +55,11 @@ namespace Chat.BU
             }
         }
 
+        /// <summary>
+        /// Delete a message from chat
+        /// </summary>
+        /// <param name="messageid"> ID of message </param>
+        /// <returns> Bool to determine success of operation </returns>
         public bool DeleteMessage(int messageid)
         {
             using (ChatModelContainer context = new ChatModelContainer())

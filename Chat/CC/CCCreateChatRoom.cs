@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Chat.BU;
-
-namespace Chat.CC
+﻿namespace Chat.CC
 {
     public class CCCreateChatRoom
     {

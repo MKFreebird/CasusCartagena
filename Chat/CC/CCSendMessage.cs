@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Chat.BU;
-
-namespace Chat.CC
+﻿namespace Chat.CC
 {
+    using BU;
+
     public class CCSendMessage
     {
-        public void CCSendMessages(int messageid, int userid, int chatid, string messagecontent, BU.Chat chat)
+        public void CCSendMessages(int messageid, int userid, int chatid, string messagecontent, BU.Chat chatroom)
         {
             Message BU = new Message();
-            BU.SendMessage(1, 1, 1, messagecontent, chat);
+            BU.SendMessage(1, 1, 1, messagecontent, chatroom);
         }
     }
 }
