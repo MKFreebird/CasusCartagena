@@ -1,0 +1,65 @@
+﻿body {
+    background: #132a40
+}
+
+.chatBox {
+    resize: none;
+    background-color: #1E3D5E;
+    color: silver;
+    height: 100%;
+    width: 100%; 
+    overflow: hidden;
+}
+
+.chatBox::-webkit-scrollbar {
+    display: block;
+}
+
+.sendBox {
+    resize: none;
+    background-color: #1E3D5E;
+    color: silver;
+    height: 40px;
+    width: 75%;
+}
+
+.sendButton {
+    background-color: #006600;
+    color: forestgreen;
+    height: 40px;
+    width: 25%;
+    position: absolute;
+    margin-top: 1px;
+}
+
+.sendButton:enabled {
+    color: limegreen;
+}
+
+#chatApplication {
+    height: 90%;
+    width: 20%;
+    position: absolute;
+    left: 0;
+    margin-top: 10px;
+}
+
+#usernameContainer {
+    padding: 0;
+    width: 100%;
+    height: auto;
+}
+
+#chatboxContainer {
+    padding: 0;
+    margin-bottom: 1px;
+    width: 100%;
+    height: 80%;
+
+}
+
+#userinputContainer {
+    width: 100%;
+    height: auto;
+
+}

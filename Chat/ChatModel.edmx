@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Chat.BU.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ChatBUStoreContainer">
+    <EntitySet Name="MessageSet" EntityType="Chat.BU.Store.MessageSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ChatSet" EntityType="Chat.BU.Store.ChatSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserSet" EntityType="Chat.BU.Store.UserSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FriendListSet" EntityType="Chat.BU.Store.FriendListSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ChatUser" EntityType="Chat.BU.Store.ChatUser" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="MessageChat" Association="Chat.BU.Store.MessageChat">
+      <End Role="Message" EntitySet="MessageSet" />
+      <End Role="Chat" EntitySet="ChatSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatUser_Chat" Association="Chat.BU.Store.FK_ChatUser_Chat">
+      <End Role="Chat" EntitySet="ChatSet" />
+      <End Role="ChatUser" EntitySet="ChatUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatUser_User" Association="Chat.BU.Store.FK_ChatUser_User">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="ChatUser" EntitySet="ChatUser" />
+    </AssociationSet>
+    <AssociationSet Name="MessageUser" Association="Chat.BU.Store.MessageUser">
+      <End Role="Message" EntitySet="MessageSet" />
+      <End Role="User" EntitySet="UserSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="MessageSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="IsReceived" Type="bit" Nullable="false" />
+    <Property Name="Chat_Id" Type="int" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ChatSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ChatRoomName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FriendListSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AccountidOne" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AccountidTwo" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ChatUser">
+    <Key>
+      <PropertyRef Name="Chat_Id" />
+      <PropertyRef Name="User_Id" />
+    </Key>
+    <Property Name="Chat_Id" Type="int" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="MessageChat">
+    <End Role="Message" Type="Chat.BU.Store.MessageSet" Multiplicity="*" />
+    <End Role="Chat" Type="Chat.BU.Store.ChatSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Chat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="Chat_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MessageUser">
+    <End Role="Message" Type="Chat.BU.Store.MessageSet" Multiplicity="*" />
+    <End Role="User" Type="Chat.BU.Store.UserSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatUser_Chat">
+    <End Role="Chat" Type="Chat.BU.Store.ChatSet" Multiplicity="1" />
+    <End Role="ChatUser" Type="Chat.BU.Store.ChatUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Chat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatUser">
+        <PropertyRef Name="Chat_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatUser_User">
+    <End Role="ChatUser" Type="Chat.BU.Store.ChatUser" Multiplicity="*" />
+    <End Role="User" Type="Chat.BU.Store.UserSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatUser">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Chat.BU" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ChatModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MessageSet" EntityType="Chat.BU.Message" />
+          <EntitySet Name="ChatSet" EntityType="Chat.BU.Chat" />
+          <EntitySet Name="UserSet" EntityType="Chat.BU.User" />
+          <EntitySet Name="FriendListSet" EntityType="Chat.BU.FriendList" />
+          <AssociationSet Name="MessageChat" Association="Chat.BU.MessageChat">
+            <End Role="Message" EntitySet="MessageSet" />
+            <End Role="Chat" EntitySet="ChatSet" />
+          </AssociationSet>
+          <AssociationSet Name="ChatUser" Association="Chat.BU.ChatUser">
+            <End Role="Chat" EntitySet="ChatSet" />
+            <End Role="User" EntitySet="UserSet" />
+          </AssociationSet>
+          <AssociationSet Name="MessageUser" Association="Chat.BU.MessageUser">
+            <End Role="Message" EntitySet="MessageSet" />
+            <End Role="User" EntitySet="UserSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" Nullable="false" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" />
+          <Property Name="IsReceived" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Chat" Relationship="Chat.BU.MessageChat" FromRole="Message" ToRole="Chat" />
+          <NavigationProperty Name="User" Relationship="Chat.BU.MessageUser" FromRole="Message" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Chat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChatRoomName" Type="String" Nullable="false" />
+          <NavigationProperty Name="Message" Relationship="Chat.BU.MessageChat" FromRole="Chat" ToRole="Message" />
+          <NavigationProperty Name="User" Relationship="Chat.BU.ChatUser" FromRole="Chat" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" />
+          <NavigationProperty Name="Chat" Relationship="Chat.BU.ChatUser" FromRole="User" ToRole="Chat" />
+          <NavigationProperty Name="Message" Relationship="Chat.BU.MessageUser" FromRole="User" ToRole="Message" />
+        </EntityType>
+        <EntityType Name="FriendList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountidOne" Type="String" Nullable="false" />
+          <Property Name="AccountidTwo" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="MessageChat">
+          <End Type="Chat.BU.Message" Role="Message" Multiplicity="*" />
+          <End Type="Chat.BU.Chat" Role="Chat" Multiplicity="1" />
+        </Association>
+        <Association Name="ChatUser">
+          <End Type="Chat.BU.Chat" Role="Chat" Multiplicity="*" />
+          <End Type="Chat.BU.User" Role="User" Multiplicity="*" />
+        </Association>
+        <Association Name="MessageUser">
+          <End Type="Chat.BU.Message" Role="Message" Multiplicity="*" />
+          <End Type="Chat.BU.User" Role="User" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ChatBUStoreContainer" CdmEntityContainer="ChatModelContainer">
+    <EntitySetMapping Name="MessageSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Chat.BU.Message)">
+        <MappingFragment StoreEntitySet="MessageSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChatSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Chat.BU.Chat)">
+        <MappingFragment StoreEntitySet="ChatSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ChatRoomName" ColumnName="ChatRoomName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Chat.BU.User)">
+        <MappingFragment StoreEntitySet="UserSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FriendListSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Chat.BU.FriendList)">
+        <MappingFragment StoreEntitySet="FriendListSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AccountidOne" ColumnName="AccountidOne" />
+          <ScalarProperty Name="AccountidTwo" ColumnName="AccountidTwo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="MessageChat" TypeName="Chat.BU.MessageChat" StoreEntitySet="MessageSet">
+      <EndProperty Name="Chat">
+        <ScalarProperty Name="Id" ColumnName="Chat_Id" />
+      </EndProperty>
+      <EndProperty Name="Message">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ChatUser" TypeName="Chat.BU.ChatUser" StoreEntitySet="ChatUser">
+      <EndProperty Name="Chat">
+        <ScalarProperty Name="Id" ColumnName="Chat_Id" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MessageUser" TypeName="Chat.BU.MessageUser" StoreEntitySet="MessageSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Message">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
