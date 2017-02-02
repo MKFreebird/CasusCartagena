@@ -7,11 +7,8 @@
 
     public partial class UIChat : System.Web.UI.Page
     {
-        BU.Chat CurrentChat;
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            CurrentChat = (BU.Chat)Session["currentchat"];
         }
 
         /// <summary>
@@ -38,9 +35,7 @@
         protected void btnCCR_Click(object sender, EventArgs e)
         {
             CCCreateChatRoom cchat = new CCCreateChatRoom();
-            //cchat.CCCreateRoom(1, "GlobalChat");
-            Session["currentchat"] = cchat.CCCreateRoom(1, "GlobalChat");
-            Debug.WriteLine(CurrentChat);
+            cchat.CCCreateRoom(1, "GlobalChat");
         }
 
         /// <summary>
@@ -75,7 +70,7 @@
             string message = txtsend.Text;
             DateTime TimeStamp = DateTime.Now;
             CCSendMessage cchat = new CCSendMessage();
-            cchat.CCSendMessages(1, 1, 1, message, CurrentChat);
+            cchat.CCSendMessages(1, 1, 39, message);
             txtsend.Text = "";
         }
     }

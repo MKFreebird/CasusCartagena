@@ -4,10 +4,8 @@
 
     public partial class Chat
     {
-        
-        public Chat CreateChat(int chatroomid, string chatroomname)
+        public void CreateChat(int chatroomid, string chatroomname)
         {
-           
             using (ChatModelContainer context = new ChatModelContainer())
             {
                 IQueryable<Chat> chatq = context.ChatSet;
@@ -16,7 +14,7 @@
                 record.ChatRoomName = chatroomname;
                 context.ChatSet.Add(record);
                 context.SaveChanges();
-                return record;
+                //return record;
             }
         }
 

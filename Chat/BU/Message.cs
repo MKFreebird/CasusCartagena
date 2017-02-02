@@ -14,17 +14,21 @@
         /// <param name="messagecontent"> The actual content of the message </param>
         /// <param name="chat"> Object of current chatroom </param>
         /// <returns></returns>
-        public bool SendMessage(int messageid, int userid, int chatid, string messagecontent, Chat chat)
+        public bool SendMessage(int messageid, int userid, int chatid, string messagecontent) //, Chat chat)
         {
             using (ChatModelContainer context = new ChatModelContainer())
             {
+                IQueryable<Chat> chatroom = context.ChatSet;
+                var chatroomDestination = (from room in context.ChatSet
+                                           where room.Id == chatid
+                                           select room).First();
                 IQueryable<Message> messageq = context.MessageSet;
                 var record = new Message();
                 record.Id = messageid;
                 record.Content = messagecontent;
                 record.TimeStamp = DateTime.Now;
                 record.IsReceived = false;
-                record.Chat = chat;
+                record.Chat = chatroomDestination;
                 IQueryable<User> userq = context.UserSet;
                 var account_test = (from act in context.UserSet
                                     where act.Id == 2  // Currently the id has been hardcoded, needs to change when account component is finished

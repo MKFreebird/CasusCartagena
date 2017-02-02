@@ -4,10 +4,10 @@
 
     public class CCSendMessage
     {
-        public void CCSendMessages(int messageid, int userid, int chatid, string messagecontent, BU.Chat chatroom)
+        public void CCSendMessages(int messageid, int userid, int chatid, string messagecontent)
         {
             Message BU = new Message();
-            BU.SendMessage(1, 1, 1, messagecontent, chatroom);
+            BU.SendMessage(messageid, userid, chatid, messagecontent);
         }
     }
 }
